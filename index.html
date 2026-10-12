@@ -15,39 +15,60 @@
   body {
     background: #000;
     color: #fff;
-    font-family: "Courier New", Courier, monospace;
+    font-family: ui-monospace, "Cascadia Mono", "JetBrains Mono", Menlo, Consolas, "Courier New", monospace;
     font-size: 16px;
-    line-height: 1.8;
+    line-height: 1.9;
     min-height: 100vh;
   }
+  ::selection { background: #7e22ce; color: #fff; }
   .wrap {
-    max-width: 640px;
-    margin: 0;
-    padding: 40px 24px 80px 24px;
+    max-width: 660px;
+    margin: 0 auto;
+    padding: 64px 24px 80px 24px;
+    text-align: center;
   }
+  .nav { margin: 0 0 24px 0; }
+  .nav a {
+    display: inline-block;
+    font-size: 13px;
+    letter-spacing: 2px;
+    color: #a855f7;
+    border: 1px solid #581c87;
+    padding: 4px 14px;
+    margin: 2px;
+    text-decoration: none;
+  }
+  .nav a:hover { border-color: #a855f7; color: #d8b4fe; }
   h1 {
     color: #a855f7;
-    font-size: 26px;
-    margin: 0 0 4px 0;
+    font-size: 34px;
+    letter-spacing: 4px;
+    margin: 0 0 6px 0;
+    font-weight: bold;
   }
   .sub {
     color: #7e22ce;
-    font-size: 14px;
-    margin: 0 0 24px 0;
+    font-size: 13px;
+    letter-spacing: 2px;
+    margin: 0 0 32px 0;
   }
-  p { margin: 16px 0; color: #fff; }
-  a { color: #a855f7; }
+  p { margin: 18px 0; color: #fff; }
+  a { color: #a855f7; text-decoration: underline; text-underline-offset: 3px; }
   a:visited { color: #7e22ce; }
+  a:hover { color: #d8b4fe; }
   hr {
     border: none;
     border-top: 1px solid #581c87;
-    margin: 28px 0 0 0;
+    width: 120px;
+    margin: 32px auto 0 auto;
   }
-  .footer { margin-top: 12px; font-size: 13px; color: #7e22ce; }
+  .footer { margin-top: 14px; font-size: 12px; letter-spacing: 1px; color: #7e22ce; }
 </style>
 </head>
 <body>
 <div class="wrap">
+
+<div class="nav"><a href="blogs.html">blogs</a></div>
 
 <h1>mayshecry</h1>
 <p class="sub">18 // low-level systems dev // the netherlands</p>
@@ -68,11 +89,13 @@
 
 <p>i'm thinking about starting a youtube channel, maybe osdev and low-level stuff, explaining how things actually work underneath. but that's a big maybe. could be next month, could be 2030. don't hold your breath.</p>
 
+<p>also, i like purple. if the color scheme didn't give it away.</p>
+
 <p>anyway, that's me. i don't like people, but i like fast code. if you're here because of sharkos, welcome. if you're here for any other reason, i'm honestly curious what it was.</p>
 
 <hr>
 <p class="footer">mayshecry // 2019-2026 // 1 html file, 0 js, 0 gradients</p>
 
 </div>
-<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a498517fdd8bf532',t:'MTc5MTgzMTMyMQ=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a498831f9d9d8cb0',t:'MTc5MTgzMzM1NA=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
