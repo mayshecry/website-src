@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>blogs // mayshecry</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0;
+    padding: 0;
+    min-height: 100%;
+    background: #000;
+  }
+  body {
+    background: #000;
+    color: #fff;
+    font-family: ui-monospace, "Cascadia Mono", "JetBrains Mono", Menlo, Consolas, "Courier New", monospace;
+    font-size: 16px;
+    line-height: 1.9;
+    min-height: 100vh;
+  }
+  ::selection { background: #7e22ce; color: #fff; }
+  .wrap {
+    max-width: 660px;
+    margin: 0 auto;
+    padding: 64px 24px 80px 24px;
+    text-align: center;
+  }
+  .nav { margin: 0 0 24px 0; }
+  .nav a {
+    display: inline-block;
+    font-size: 13px;
+    letter-spacing: 2px;
+    color: #a855f7;
+    border: 1px solid #581c87;
+    padding: 4px 14px;
+    margin: 2px;
+    text-decoration: none;
+  }
+  .nav a:hover { border-color: #a855f7; color: #d8b4fe; }
+  h1 {
+    color: #a855f7;
+    font-size: 34px;
+    letter-spacing: 4px;
+    margin: 0 0 6px 0;
+    font-weight: bold;
+  }
+  .sub {
+    color: #7e22ce;
+    font-size: 13px;
+    letter-spacing: 2px;
+    margin: 0 0 32px 0;
+  }
+  details { margin: 28px 0; }
+  summary { list-style: none; cursor: pointer; outline: none; }
+  summary::-webkit-details-marker { display: none; }
+  summary::marker { content: ""; }
+  .post-title {
+    display: block;
+    color: #a855f7;
+    font-size: 20px;
+    font-weight: bold;
+  }
+  .post-title::before { content: "+ "; color: #581c87; }
+  details[open] .post-title::before { content: "- "; }
+  summary:hover .post-title { color: #d8b4fe; }
+  .date { display: block; color: #7e22ce; font-size: 13px; margin-top: 4px; }
+  .body { margin-top: 8px; }
+  p { margin: 18px 0; color: #fff; }
+  a { color: #a855f7; text-decoration: underline; text-underline-offset: 3px; }
+  a:visited { color: #7e22ce; }
+  a:hover { color: #d8b4fe; }
+  hr {
+    border: none;
+    border-top: 1px solid #581c87;
+    width: 120px;
+    margin: 32px auto 0 auto;
+  }
+  .footer { margin-top: 14px; font-size: 12px; letter-spacing: 1px; color: #7e22ce; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="nav"><a href="index.html">home</a></div>
+
+<h1>blogs</h1>
+<p class="sub">words i wrote instead of code // click a title to unfold</p>
+
+<details>
+<summary>
+<span class="post-title">i turned a raspberry pi 3 into a wardriving machine</span>
+<span class="date">oct 2026 // project: <a href="https://github.com/mayshecry/wardriving">github.com/mayshecry/wardriving</a></span>
+</summary>
+<div class="body">
+
+<p>so i turned a raspberry pi 3 into a whole wardriving machine. it's called loner_. the pi spins up a WPA-protected hotspot, you hook your phone up to it, and boom, you get a little dashboard showing every wifi network and bluetooth device floating around you. pocket-sized wireless survey console. no internet, no cdn, everything served straight off the pi. clean as hell.</p>
+
+<p>the setup is two wifi radios. the pi's built-in wlan0 runs the hotspot while a usb adapter on wlan1 does the passive scans. tap a network on the dashboard and it re-scans that AP's channel and dumps all the beacon gossip: auth suites, ciphers, phy generation, vendor OUIs, management-frame protection, the works. bluetooth discovery runs through bluez, no pairing needed. everything gets logged to csv, with coordinates from gpsd or an iphone shortcut if you're feeling fancy.</p>
+
+<p>and before anyone gets any ideas: it's a survey tool, not an attack tool. doesn't join networks, doesn't deauth anyone, doesn't sniff client traffic. just passive observation, fr. my redteam days are behind me. i just like knowing what's in the air around me.</p>
+
+<p>obviously it's written in C. gcc, make, iw, nmcli, bluetoothctl. C is my beloved and i'm not apologizing for it. the whole thing is one small binary plus a dashboard html file chilling next to it. that part felt right.</p>
+
+<p>but ngl? it was a pain in the ass to make. networkmanager beefing with me over which interface it owns. usb wifi drivers being usb wifi drivers. bluez handing me cached device names whenever it felt like it. access points switching channels or straight up vanishing mid-inspection. every layer of the stack had its own opinion and none of them agreed with each other. fix one thing, two more break. that was my life for days. i was cooked.</p>
+
+<p>still. it works now. you plug it in, it prints a url, you open it on your phone and watch the airwaves. lowkey satisfying as hell. source is on <a href="https://github.com/mayshecry/wardriving">github</a> if you wanna suffer too. you'll need a pi 3, a second wifi adapter, and patience. lots of patience.</p>
+
+</div>
+</details>
+
+<details>
+<summary>
+<span class="post-title">i wrote a dll injector and then its worst enemy</span>
+<span class="date">aug 2026 // code: <a href="https://github.com/mayshecry/dll-injector">dll-injector</a> + <a href="https://github.com/mayshecry/anti-dll">anti-dll</a></span>
+</summary>
+<div class="body">
+
+<p>some weeks you just feel like poking processes. i wrote a tiny dependency-free dll injector in C that works on x64 windows AND x64 linux. one static lib, one clean C api, drop it into anything. windows side is the classic combo: CreateRemoteThread plus LoadLibrary in the target. linux side is spicier: ptrace attach, hunt down dlopen in the target's libc, carve out an RWX workspace through a raw mmap syscall, and run little trampolines that call dlopen for you. textbook redteam shit, and yes, i had fun.</p>
+
+<p>but then the other half of my brain woke up and went "ok but how do you catch that." so right after, i built anti-dll: a self-contained windows library that sniffs out injected DLLs inside its own process. it cross-checks the toolhelp snapshot against the PEB loader list to find hidden modules, builds the full import graph to see what was never supposed to be loaded, scans function prologues for hook trampolines, and scores everything into CLEAN / SUSPICIOUS / INJECTED. injector vs detector. i played both sides and honestly both won.</p>
+
+<p>both repos ship with test harnesses and examples so you can watch the whole thing happen end to end. redteam muscle memory paying rent in 2026.</p>
+
+</div>
+</details>
+
+<details>
+<summary>
+<span class="post-title">i made my own programming language because the others were too slow</span>
+<span class="date">jun 2026 // code: <a href="https://github.com/mayshecry/sharkscript-standalone">github.com/mayshecry/sharkscript-standalone</a></span>
+</summary>
+<div class="body">
+
+<p>at some point every perf-obsessed dev looks at existing languages and goes "nah, i could do this faster." so i did. sharkscript is a high-performance little language with a custom bytecode VM, built for real-time packet analysis and low-latency automation where microseconds actually matter. .shark source compiles down to bytecode, and the VM runs it through an O(1) jump table dispatcher instead of some slow switch-case nonsense.</p>
+
+<p>and when the VM still isn't fast enough, there's AOT mode: it transpiles your script to native Go and compiles that into a stripped standalone binary. no VM layer at all. zero overhead. plus lock-free multi-core parallelism, zero-alloc string and math engines, sync.Pool buffers, the whole nine yards. i was unwell when i wrote this. (affectionate.)</p>
+
+<p>best part? ligmashark uses sharkscript as its plugin language. my network analyzer runs plugins written in my own language. the ecosystem is just me. it's beautiful. docs live at larping.today, don't ask. repo's <a href="https://github.com/mayshecry/sharkscript-standalone">here</a> if you wanna see what "extreme focus on speed" looks like when i do it.</p>
+
+</div>
+</details>
+
+<details>
+<summary>
+<span class="post-title">i got doom running on sharkos</span>
+<span class="date">jun 2026 // code: <a href="https://github.com/mayshecry/Shark-OS/tree/main/src/doom">src/doom</a></span>
+</summary>
+<div class="body">
+
+<p>everyone writing an OS hits this phase eventually. you wake up one day and choose violence: port doom to your own kernel. so now there's a whole src/doom directory in sharkos. doom.c plus a full software renderer split into modules. bsp traversal, wall columns, floor and ceiling planes, lighting, sprites, wad gamedata loading, the entire circus. yes, my operating system runs doom. that's the whole point of an operating system, fr.</p>
+
+<p>the renderer is all C, obviously. fixed-point trig tables, clip segments, visplanes, all that 1993 black magic, running on bare metal i wrote myself. no SDL, no OS underneath holding my hand. sharkos IS the OS underneath. the system layer talks straight to my own framebuffer and input. it's doom all the way down.</p>
+
+<p>and yeah, it was a shit ton of work. every module fought me. bsp traversal off by one and the whole level renders inside out. columns misaligned and walls look like glitch art. planes... don't even get me started on visplanes. i'd fix the lighting and break the sprites. fix the sprites and the floors would start vomiting pixels. it kept breaking in new and creative ways every single day.</p>
+
+<p>worst part? debugging a renderer on your own OS. no renderdoc, no comfy tooling, just you, a framebuffer, and vibes. half the bugs were the renderer, half were secretly my own OS lying to me underneath. that was a special kind of pain in my ass.</p>
+
+<p>but then one day it just... rendered. walls, floor, ceiling, a demon staring back at me, all on sharkos. i've never felt so powerful. code's in <a href="https://github.com/mayshecry/Shark-OS/tree/main/src/doom">src/doom</a> if you wanna stare into the abyss. it runs doom. that's all i ever wanted to say.</p>
+
+</div>
+</details>
+
+<details>
+<summary>
+<span class="post-title">i got tired of guessing what my pc does at 3am</span>
+<span class="date">may 2026 // code: <a href="https://github.com/mayshecry/ligmashark">github.com/mayshecry/ligmashark</a></span>
+</summary>
+<div class="body">
+
+<p>wireshark shows you raw packet vomit. nethogs shows you bandwidth but won't name the culprit. and there i was at 3am watching my machine talk to god knows who. so i built ligmashark: a terminal-based network analyzer that tells you exactly which process is using your network. 55 commits, 4 stars, my most starred repo. the people were also awake at 3am, apparently.</p>
+
+<p>it's written in Go, lives in your terminal, and does what the other tools won't: per-process network attribution. no bloat, no telemetry, no 400-tab GUI. plus a full plugin system powered by sharkscript, my own language, with docs for features, internals, plugins, usage. i documented it like a real project and everything. growth.</p>
+
+<p>if you've ever stared at a network graph wondering "who the hell is uploading right now," this one's for you. repo's <a href="https://github.com/mayshecry/ligmashark">here</a>. go catch your own processes lacking.</p>
+
+</div>
+</details>
+
+<hr>
+<p class="footer">mayshecry // 2019-2026 // 1 html file, 0 js, 0 gradients</p>
+
+</div>
+</body>
+</html>
